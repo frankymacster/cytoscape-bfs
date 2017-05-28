@@ -22,7 +22,6 @@ var doBFS = function (graph, source) {
         bfsInfo[v].predecessor = u;
         queue.enqueue(v);
       }
-      onVisit(v);
     }
   }
 

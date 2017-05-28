@@ -1,9 +1,3 @@
-var onVisit = function (node) {
-  var visitedNode = cy.nodes(node);
-  console.log(visitedNode);
-};
-
-// // //
 var cy;
 
 var getRandomInt = function (min, max) {
@@ -69,7 +63,6 @@ var setCurrentNeighbour = function (neighbours, i) {
   return v;
 };
 
-// // //
 window.onload = function () {
   cy = cytoscape({
     container: document.getElementById('cy'),
