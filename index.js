@@ -38,12 +38,24 @@ var printGraph = function (graph) {
   }
 };
 
+var lastNode;
 var colorNode = function (ev) {
-  console.log('colorNode', ev.detail);
+  if (lastNode) {
+    lastNode.style('background-color', '');
+  }
+
+  var u = lastNode = cy.nodes('#n' + ev.detail);
+  u.style('background-color', 'magenta');
 };
 
+var lastNeighbour;
 var colorNeighbour = function (ev) {
-  console.log('colorNeighbour', ev.detail);
+  if (lastNeighbour) {
+    lastNeighbour.style('background-color', 'yellow');
+  }
+
+  var u = lastNeighbour = cy.nodes('#n' + ev.detail);
+  u.style('background-color', 'cyan');
 };
 
 window.onload = function () {
