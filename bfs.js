@@ -48,9 +48,14 @@ var doBFS = function (graph, source) {
   var queue = new Queue();
   queue.enqueue(source);
 
-  while (!queue.isEmpty()) {
-    visitNode(queue, graph, bfsInfo);
-  }
+  var DELAY = 1000;
+  var handle = window.setInterval(function() {
+    if (!queue.isEmpty()) {
+      visitNode(queue, graph, bfsInfo);
+    } else {
+      window.clearInterval(handle);
+    }
+  }, DELAY);
 
   return bfsInfo;
 };
