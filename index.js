@@ -1,8 +1,3 @@
-var sleep = function (delay) {
-  var start = new Date().getTime();
-  while (new Date().getTime() < start + delay);
-};
-
 var onVisit = function (node) {
   var visitedNode = cy.nodes(node);
   console.log(visitedNode);
