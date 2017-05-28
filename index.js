@@ -38,16 +38,12 @@ var printGraph = function (graph) {
   }
 };
 
-var setCurrentNode = function (queue) {
-  var u = queue.dequeue();
-  cy.$('#n' + u).addClass('red');
-  return u;
+var colorNode = function (ev) {
+  console.log('colorNode', ev.detail);
 };
 
-var setCurrentNeighbour = function (neighbours, i) {
-  var v = neighbours[i];
-  cy.$('#n' + v).addClass('blue');
-  return v;
+var colorNeighbour = function (ev) {
+  console.log('colorNeighbour', ev.detail);
 };
 
 window.onload = function () {
@@ -73,6 +69,9 @@ window.onload = function () {
   ];
 
   printGraph(adjList);
+
+  document.addEventListener('current-node-set', colorNode);
+  document.addEventListener('current-neighbour-set', colorNeighbour);
 
   var bfsInfo = doBFS(adjList, 3);
 };

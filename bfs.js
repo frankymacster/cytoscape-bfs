@@ -1,3 +1,21 @@
+var setCurrentNode = function (queue) {
+  var u = queue.dequeue();
+
+  var ev = new CustomEvent('current-node-set', {detail: u});
+  document.dispatchEvent(ev);
+
+  return u;
+};
+
+var setCurrentNeighbour = function (neighbours, i) {
+  var v = neighbours[i];
+
+  var ev = new CustomEvent('current-neighbour-set', {detail: v});
+  document.dispatchEvent(ev);
+
+  return v;
+};
+
 var doBFS = function (graph, source) {
   var bfsInfo = [];
 
