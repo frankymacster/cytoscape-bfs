@@ -16,16 +16,32 @@ var setCurrentNeighbour = function (neighbours, i) {
   return v;
 };
 
+var visitNeighbour = function (queue, graph, bfsInfo, u, i) {
+  var v = setCurrentNeighbour(graph[u], i);
+  if (bfsInfo[v].distance === null) {
+    bfsInfo[v].distance = bfsInfo[u].distance + 1;
+    bfsInfo[v].predecessor = u;
+    queue.enqueue(v);
+  }
+  return queue;
+}
+
 var visitNode = function (queue, graph, bfsInfo) {
   var u = setCurrentNode(queue);
-  for (var i = 0; i < graph[u].length; i++) {
-    var v = setCurrentNeighbour(graph[u], i);
-    if (bfsInfo[v].distance === null) {
-      bfsInfo[v].distance = bfsInfo[u].distance + 1;
-      bfsInfo[v].predecessor = u;
-      queue.enqueue(v);
+  var i = 0;
+  var handle = window.setInterval(function() {
+    if (i < graph[u].length) {
+      queue = visitNeighbour(queue, graph, bfsInfo, u, i);
+      i++;
+    } else {
+      window.clearInterval(handle);
+      if(!queue.isEmpty()) {
+        visitNode(queue, graph, bfsInfo);
+      } else {
+        return bfsInfo;
+      }
     }
-  }
+  }, 1000);
 };
 
 var initBfsInfo = function (graph, source) {
@@ -48,14 +64,7 @@ var doBFS = function (graph, source) {
   var queue = new Queue();
   queue.enqueue(source);
 
-  var DELAY = 1000;
-  var handle = window.setInterval(function() {
-    if (!queue.isEmpty()) {
-      visitNode(queue, graph, bfsInfo);
-    } else {
-      window.clearInterval(handle);
-    }
-  }, DELAY);
+  bfsInfo = visitNode(queue, graph, bfsInfo);
 
   return bfsInfo;
 };
